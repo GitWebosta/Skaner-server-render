@@ -79,6 +79,7 @@ function scrollToBottom({
 const scrollAndGetPageHTML = async (req, res) => {
   // Set up Chromium browser and page.
   const browser = await puppeteer.launch({
+    headless: true,
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
