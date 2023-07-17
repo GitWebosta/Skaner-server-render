@@ -27,8 +27,8 @@ mime.define({
 }, { force: true })
 
 // pasery
-// Content-type: application/json
-//app.use(bodyParser.json())
+//Content-type: application/json
+app.use(bodyParser.json())
 
 // fix cors
 app.use(cors())
