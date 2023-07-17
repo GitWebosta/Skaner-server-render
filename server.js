@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "text/plain");
   next();
 });
 
@@ -23,7 +23,7 @@ app.disable('etag');
 
 // mime
 mime.define({
-  'text/html': ['html'],
+  'text/plain': ['plain'],
 }, { force: true })
 
 // pasery
@@ -79,7 +79,7 @@ function scrollToBottom({
 const scrollAndGetPageHTML = async (req, res) => {
   // Set up Chromium browser and page.
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: true,
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
@@ -91,6 +91,7 @@ const scrollAndGetPageHTML = async (req, res) => {
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
+
   try{
     const page = await browser.newPage();
 
@@ -110,13 +111,15 @@ const scrollAndGetPageHTML = async (req, res) => {
     })
 
     const html = await page.content();
+    console.log(html)
     
     res.send(html);
+  } catch (error){
+    console.error(error);
+    res.send(`Something went wrong! Error: ${error}`);
+  } finally {
     await browser.close();
-  }catch (error){
-    res.send(error)
   }
-  
 };
 
 app.post('/htmlCode', scrollAndGetPageHTML);
