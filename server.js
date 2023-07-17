@@ -114,7 +114,7 @@ const scrollAndGetPageHTML = async (req, res) => {
     await browser.close();
     res.send(html);
   }catch (error){
-
+    res.send(error)
   }
   
 };
