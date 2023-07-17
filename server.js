@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, './')));
 // headers
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader("Content-Type", "application/json;charset=utf-8");
   next();
