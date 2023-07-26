@@ -100,7 +100,7 @@ const scrollAndGetPageHTML = async (req, res) => {
     // //default timeout tto navigation function and waiting function(waitFor(), waitForFunction(), waitForRequest(), waitForResponse(), waitForSelector(), waitForXPath())
     page.setDefaultTimeout(0); 
     // Navigate to the example page.
-    await page.goto(req.body.url, {waitUntil: 'networkidle2', timeout: 0});
+    await page.goto(req.body.url);
   
     await scrollToBottom({
       page,
@@ -111,7 +111,6 @@ const scrollAndGetPageHTML = async (req, res) => {
     })
 
     const html = await page.content();
-    console.log(html)
     
     res.send(html);
   } catch (error){
