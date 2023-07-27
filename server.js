@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "application/json, text/plain");
   next();
 });
 
@@ -23,7 +23,8 @@ app.disable('etag');
 
 // mime
 mime.define({
-  'text/plain': ['plain'],
+  'application/json': ['json'],
+  'text/plain': ['plain']
 }, { force: true })
 
 // pasery
@@ -86,11 +87,10 @@ const scrollAndGetPageHTML = async (req, res) => {
       "--single-process",
       "--no-zygote",
     ],
-    product: 'chrome'
-    // executablePath:
-    //   process.env.NODE_ENV === "production"
-    //     ? process.env.PUPPETEER_EXECUTABLE_PATH
-    //     : puppeteer.executablePath(),
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
   });
 
   try{
@@ -112,7 +112,6 @@ const scrollAndGetPageHTML = async (req, res) => {
     })
 
     const html = await page.content();
-    
     res.send(html);
   } catch (error){
     console.error(error);
