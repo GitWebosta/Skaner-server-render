@@ -119,5 +119,4 @@ app.post('/htmlCode', scrollAndGetPageHTML);
 
 // server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-app.write('Server is working!');
   
