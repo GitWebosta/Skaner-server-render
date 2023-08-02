@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader("Content-Type", "application/json, text/plain");
+  res.setHeader("Content-Type", "application/json");
   next();
 });
 
@@ -23,8 +23,7 @@ app.disable('etag');
 
 // mime
 mime.define({
-  'application/json': ['json'],
-  'text/plain': ['plain']
+  'application/json': ['json']
 }, { force: true })
 
 // pasery
@@ -70,12 +69,6 @@ function scrollToBottom({
   );
 }
  
-// {
-//   headless: true,
-//   ignoreDefaultArgs: ['--disable-extensions'],
-//   args: ['--no-sandbox', '--disable-setuid-sandbox'],
-//   protocolTimeout: 120000
-// }
 
 const scrollAndGetPageHTML = async (req, res) => {
   // Set up Chromium browser and page.
@@ -126,4 +119,5 @@ app.post('/htmlCode', scrollAndGetPageHTML);
 
 // server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.write('Server is working!');
   
