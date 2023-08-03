@@ -16,9 +16,9 @@ app.use(express.static(path.join(__dirname, './')));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
   res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   next();
 });
 
@@ -80,10 +80,7 @@ const scrollAndGetPageHTML = async (req, res) => {
       "--disable-setuid-sandbox",
       '--disable-web-security',
       '--disable-features=IsolateOrigins',
-      '--disable-site-isolation-trials',
-      "--no-sandbox",
-      "--single-process",
-      "--no-zygote",
+      '--disable-site-isolation-trials'
     ],
     executablePath:
       process.env.NODE_ENV === "production"
