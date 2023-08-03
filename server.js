@@ -77,6 +77,7 @@ const scrollAndGetPageHTML = async (req, res) => {
     headless: true,
     args: [
       "--disable-setuid-sandbox",
+      '--disable-web-security',
       "--no-sandbox",
       "--single-process",
       "--no-zygote",
