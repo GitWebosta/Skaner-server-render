@@ -7,13 +7,17 @@ const mime = require('mime')
 const cors = require('cors')
 const puppeteer = require('puppeteer')
 
+// fix cors
+app.use(cors())
+
 app.use(express.static(path.join(__dirname, './')));
 
 // headers
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Dostosuj '*', aby zezwalać tylko na konkretne domeny
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader("Content-Type", "application/json");
   next();
 });
@@ -29,9 +33,6 @@ mime.define({
 // pasery
 //Content-type: application/json
 app.use(bodyParser.json())
-
-// fix cors
-app.use(cors())
 
 function scrollToBottom({
   page,
