@@ -75,9 +75,12 @@ const scrollAndGetPageHTML = async (req, res) => {
   // Set up Chromium browser and page.
   const browser = await puppeteer.launch({
     headless: true,
+    devtools: true,
     args: [
       "--disable-setuid-sandbox",
       '--disable-web-security',
+      '--disable-features=IsolateOrigins',
+      '--disable-site-isolation-trials',
       "--no-sandbox",
       "--single-process",
       "--no-zygote",
